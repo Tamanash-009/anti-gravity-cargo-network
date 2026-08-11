@@ -1,0 +1,171 @@
+/* ============================================================
+   ANTI-GRAVITY CARGO NETWORK — Animations
+   Keyframes, motion utilities, skeleton loaders
+   ============================================================ */
+
+/* ---- Keyframes ---- */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes hex-spin {
+  from { stroke-dashoffset: 200; transform: rotate(0deg); transform-origin: 24px 24px; }
+  to   { stroke-dashoffset: 0;   transform: rotate(720deg); transform-origin: 24px 24px; }
+}
+
+@keyframes hex-pulse {
+  0%, 100% { opacity: 1; transform: scale(1);   }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+@keyframes radar-ping {
+  0%   { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes alert-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.15); }
+  50%       { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(100%) scale(0.94); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes toast-out {
+  from { opacity: 1; transform: translateX(0) scale(1); }
+  to   { opacity: 0; transform: translateX(100%) scale(0.94); }
+}
+
+@keyframes counter-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bar-grow {
+  from { transform: scaleY(0); transform-origin: bottom; }
+  to   { transform: scaleY(1); transform-origin: bottom; }
+}
+
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ---- Animation Classes ---- */
+.animate-fade-in     { animation: fade-in 250ms ease both; }
+.animate-fade-in-up  { animation: fade-in-up 280ms ease both; }
+.animate-slide-right { animation: slide-in-right 250ms ease both; }
+.animate-scale-in    { animation: scale-in 200ms ease both; }
+
+/* Staggered children */
+.stagger > *:nth-child(1)  { animation: fade-in-up 280ms ease 0ms   both; }
+.stagger > *:nth-child(2)  { animation: fade-in-up 280ms ease 40ms  both; }
+.stagger > *:nth-child(3)  { animation: fade-in-up 280ms ease 80ms  both; }
+.stagger > *:nth-child(4)  { animation: fade-in-up 280ms ease 120ms both; }
+.stagger > *:nth-child(5)  { animation: fade-in-up 280ms ease 160ms both; }
+.stagger > *:nth-child(6)  { animation: fade-in-up 280ms ease 200ms both; }
+.stagger > *:nth-child(7)  { animation: fade-in-up 280ms ease 240ms both; }
+.stagger > *:nth-child(8)  { animation: fade-in-up 280ms ease 280ms both; }
+.stagger > *:nth-child(9)  { animation: fade-in-up 280ms ease 320ms both; }
+.stagger > *:nth-child(n+10) { animation: fade-in-up 280ms ease 360ms both; }
+
+/* Page enter transition */
+.view-enter {
+  animation: fade-in-up 240ms ease both;
+}
+
+/* ---- Hover Lift ---- */
+.hover-lift {
+  transition: transform var(--trans), box-shadow var(--trans);
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ---- Skeleton Loaders ---- */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-surface-3) 25%,
+    var(--bg-surface-4) 50%,
+    var(--bg-surface-3) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.6s ease-in-out infinite;
+  border-radius: var(--r-sm);
+}
+.skeleton-text  { height: 13px; }
+.skeleton-text.short { width: 40%; }
+.skeleton-text.long  { width: 90%; }
+
+/* ---- Loading Screen ---- */
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 20px;
+  color: var(--text-3);
+  font-size: 13px;
+}
+
+.loading-hex svg { animation: fade-in 400ms ease; }
+.hex-spin { animation: hex-spin 2s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+.hex-pulse { animation: hex-pulse 1.5s ease-in-out infinite; }
+
+/* ---- Live Status Dot ---- */
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.status-dot.status-green {
+  background: var(--success);
+  animation: status-pulse 2s ease-in-out infinite;
+}
+.status-dot.status-yellow { background: var(--warning); }
+.status-dot.status-red    { background: var(--danger); animation: status-pulse 1s ease-in-out infinite; }
+
+/* ---- Reduced Motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
